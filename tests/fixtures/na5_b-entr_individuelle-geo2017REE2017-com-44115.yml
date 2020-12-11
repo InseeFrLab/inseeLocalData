@@ -1,0 +1,61 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://geo2017ree2017/COM-44115.all.all
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+      Authorization: Bearer 63b95dfc-f3ea-3598-9243-0a6842856057
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      access-control-allow-headers: authorization,Access-Control-Allow-Origin,Content-Type,SOAPAction
+      access-control-allow-methods: GET
+      access-control-allow-origin: '*'
+      content-type: application/json;charset=utf-8
+      date: Wed, 03 Jun 2020 08:27:12 GMT
+      set-cookie:
+      - INSEE=1208560394.20480.0000;secure; expires=Wed, 03-Jun-2020 08:47:12 GMT;
+        path=/
+      - pdapimgateway=1830169354.22560.0000;secure; expires=Wed, 03-Jun-2020 08:47:12
+        GMT; path=/
+      strict-transport-security: max-age=100000; includeSubDomains
+      transfer-encoding: chunked
+      x-frame-options: SAMEORIGIN
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"Croisement":{"Filtre":"","Groupe":{"@code":"F","$":"France"},"JeuDonnees":{"@code":"GEO2017REE2017","Annee":"2017","Libelle":"Répertoire
+        des entreprises et des établissements 2017","Source":"Demographie des entreprises
+        et des établissements"}},"Zone":{"@codgeo":"44115","@nivgeo":"COM","Millesime":{"@annee":"2017","Nccenr":"Oudon","Tncc":"1"}},"Variable":[{"@code":"ENTR_INDIVIDUELLE","Libelle":"Entreprise
+        individuelle","Modalite":[{"@code":"2","@variable":"","Libelle":"Non"},{"@code":"1","@variable":"","Libelle":"Oui"},{"@code":"ENS","@variable":"","Libelle":"Ensemble"}]},{"@code":"NA5_B","Libelle":"Activité
+        économique en 5 postes, nouvelle répartition","Modalite":[{"@code":"PS","@variable":"","Libelle":"Services
+        marchands aux particuliers"},{"@code":"JN","@variable":"","Libelle":"Services
+        marchands aux entreprises"},{"@code":"GI","@variable":"","Libelle":"Commerce,
+        transport, hébergement et restauration"},{"@code":"FZ","@variable":"","Libelle":"Construction"},{"@code":"BE","@variable":"","Libelle":"Industrie"},{"@code":"ENS","@variable":"","Libelle":"Ensemble"}]}],"Cellule":[{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"ENS","@variable":"NA5_B"},{"@code":"ENS","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"21"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"BE","@variable":"NA5_B"},{"@code":"ENS","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"1"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"FZ","@variable":"NA5_B"},{"@code":"ENS","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"4"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"GI","@variable":"NA5_B"},{"@code":"ENS","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"1"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"JN","@variable":"NA5_B"},{"@code":"ENS","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"7"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"PS","@variable":"NA5_B"},{"@code":"ENS","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"8"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"ENS","@variable":"NA5_B"},{"@code":"1","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"15"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"BE","@variable":"NA5_B"},{"@code":"1","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"1"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"FZ","@variable":"NA5_B"},{"@code":"1","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"2"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"GI","@variable":"NA5_B"},{"@code":"1","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"0"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"JN","@variable":"NA5_B"},{"@code":"1","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"5"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"PS","@variable":"NA5_B"},{"@code":"1","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"7"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"ENS","@variable":"NA5_B"},{"@code":"2","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"6"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"BE","@variable":"NA5_B"},{"@code":"2","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"0"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"FZ","@variable":"NA5_B"},{"@code":"2","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"2"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"GI","@variable":"NA5_B"},{"@code":"2","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"1"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"JN","@variable":"NA5_B"},{"@code":"2","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"2"},{"Zone":{"@codgeo":"44115","@nivgeo":"COM"},"Mesure":{"@code":"NBCRENT","$":"Nombre
+        de créations d''entreprises"},"Modalite":[{"@code":"PS","@variable":"NA5_B"},{"@code":"2","@variable":"ENTR_INDIVIDUELLE"}],"Valeur":"1"}]}'
+  recorded_at: 2020-06-03 08:27:12 GMT
+  recorded_with: vcr/0.5.4, webmockr/0.6.2
