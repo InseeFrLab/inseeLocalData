@@ -4,6 +4,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/InseeFrLab/inseeLocalData/workflows/R-CMD-check/badge.svg)](https://github.com/InseeFrLab/inseeLocalData/actions)
 <!-- badges: end -->
 
 L’[API ‘Données
