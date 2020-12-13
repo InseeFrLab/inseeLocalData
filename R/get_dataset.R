@@ -19,21 +19,25 @@
 #' @examples
 #' \donttest{
 #' # Remplace jeton par la valeur du jeton genere sur le catalogue des API :
-#' get_dataset(jeton,
-#'          "GEO2017REE2017",
-#'          "NA5_B-ENTR_INDIVIDUELLE",
-#'          "all.all",
-#'          "COM",
-#'          "51108")
+#' if (exists("jeton")) {
+#'   get_dataset(jeton,
+#'               "GEO2017REE2017",
+#'               "NA5_B-ENTR_INDIVIDUELLE",
+#'               "all.all",
+#'               "COM",
+#'               "51108")
+#' }
 #'
 #' # Genere une fenetre dans laquelle vous pouvez renseigner le jeton genere sur le catalogue des API
 #' # Permet de ne pas stocker le jeton en clair dans le programme
-#' get_dataset(.rs.askForPassword("jeton:"),
-#'          "GEO2017REE2017",
-#'          "NA5_B-ENTR_INDIVIDUELLE",
-#'          "all.all",
-#'          "COM",
-#'          "51108")
+#' if (interactive() && identical(Sys.getenv("RSTUDIO"), "1")) {
+#'   get_dataset(rstudioapi::askForPassword("jeton:"),
+#'               "GEO2017REE2017",
+#'               "NA5_B-ENTR_INDIVIDUELLE",
+#'               "all.all",
+#'               "COM",
+#'               "51108")
+#' }
 #'
 #' # Necessite la modification du fichier .Renviron en ajoutant
 #' # une ligne jeton = "la valeur du jeton genere sur le catalogue des API"
@@ -41,12 +45,14 @@
 #' # utiliser la commande usethis::edit_r_environ("user")
 #' # Necessite de redemarer R après avoir fait la modification
 #' # Ce parametre doit etre mis a jour à chaque fois qu'un nouveau jeton est genere
-#' get_dataset(Sys.getenv (jeton),
-#'          "GEO2017REE2017",
-#'          "NA5_B-ENTR_INDIVIDUELLE",
-#'          "all.all",
-#'          "COM",
-#'          "51108")
+#' if (!is.na(Sys.getenv("jeton", NA))) {
+#'   get_dataset(Sys.getenv("jeton"),
+#'               "GEO2017REE2017",
+#'               "NA5_B-ENTR_INDIVIDUELLE",
+#'               "all.all",
+#'               "COM",
+#'               "51108")
+#' }
 #' }
 
 
