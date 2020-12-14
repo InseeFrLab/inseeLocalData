@@ -42,7 +42,7 @@ vous référer à la documentation de l’API (dans l’onglet Documentation) :
 Vous pouvez installer la version de développement depuis GitHub en exécutant :
 
 ``` r
-remotes::install_github("inseefrlab/apinsee")
+remotes::install_github("inseefrlab/inseeLocalData")
 ```
 
 ## Utilisation
