@@ -6,6 +6,7 @@
 
 [![R-CMD-check](https://github.com/InseeFrLab/inseeLocalData/workflows/R-CMD-check/badge.svg)](https://github.com/InseeFrLab/inseeLocalData/actions)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/inseeLocalData)](https://cran.r-project.org/package=inseeLocalData)
 <!-- badges: end -->
 
 L’[API ‘Données
