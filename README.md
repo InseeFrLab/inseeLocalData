@@ -37,6 +37,14 @@ vous référer à la documentation de l’API (dans l’onglet Documentation) :
   - Pour chaque source, un fchier Excel documentant toute l’information
     présente dans l’API est mis à disposition.
 
+## Installation
+
+Vous pouvez installer la version de développement depuis GitHub en exécutant :
+
+``` r
+remotes::install_github("inseefrlab/apinsee")
+```
+
 ## Utilisation
 
 Dans les différents exemples, il est nécessaire d’avoir généré
@@ -126,3 +134,7 @@ liste_code <- sortie[,1]$liste_code # pour accéder aux nomenclatures du 1er cro
 info_zone <- sortie[,1]$info_zone # pour accéder aux données géographiques du 1er croisement renseigné dans le fichier
 source <- sortie[,1]$source # pour accéder à la source du 1er croisement renseigné dans le fichier
 ```
+
+## Licence
+
+Le code source de ce projet est publié sous licence GPL.
