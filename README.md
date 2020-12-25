@@ -78,7 +78,7 @@ nivgeo <- "COM"
 codgeo <- "51108"
 modalite <- "all.all"
 
-donneesAPI <- get_datase(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo)
+donneesAPI <- get_dataset(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo)
 
 donnees <- donneesAPI$donnees # pour accéder aux données
 liste_code <- donneesAPI$liste_code # pour accéder aux nomenclatures
@@ -99,7 +99,7 @@ croisement <- "NA5_B-ENTR_INDIVIDUELLE"
 jeu_donnees <- "GEO2017REE2017"
 modalite <- "all.all"
 
-sortie <- mapply(get_datase,
+sortie <- mapply(get_dataset,
                  jeton, jeu_donnees, croisement, 
                  modalite, liste_code$nivgeo, liste_code$codgeo,USE.NAMES = TRUE)
 
