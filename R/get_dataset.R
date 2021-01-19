@@ -19,25 +19,21 @@
 #' @examples
 #' \donttest{
 #' # Remplace jeton par la valeur du jeton genere sur le catalogue des API :
-#' if (exists("jeton")) {
-#'   get_dataset(jeton,
-#'               "GEO2017REE2017",
-#'               "NA5_B-ENTR_INDIVIDUELLE",
-#'               "all.all",
-#'               "COM",
-#'               "51108")
-#' }
+#' get_dataset(jeton,
+#'          "GEO2017REE2017",
+#'          "NA5_B-ENTR_INDIVIDUELLE",
+#'          "all.all",
+#'          "COM",
+#'          "51108")
 #'
 #' # Genere une fenetre dans laquelle vous pouvez renseigner le jeton genere sur le catalogue des API
 #' # Permet de ne pas stocker le jeton en clair dans le programme
-#' if (interactive() && identical(Sys.getenv("RSTUDIO"), "1")) {
-#'   get_dataset(rstudioapi::askForPassword("jeton:"),
-#'               "GEO2017REE2017",
-#'               "NA5_B-ENTR_INDIVIDUELLE",
-#'               "all.all",
-#'               "COM",
-#'               "51108")
-#' }
+#' get_dataset(.rs.askForPassword("jeton:"),
+#'          "GEO2017REE2017",
+#'          "NA5_B-ENTR_INDIVIDUELLE",
+#'          "all.all",
+#'          "COM",
+#'          "51108")
 #'
 #' # Necessite la modification du fichier .Renviron en ajoutant
 #' # une ligne jeton = "la valeur du jeton genere sur le catalogue des API"
@@ -45,14 +41,12 @@
 #' # utiliser la commande usethis::edit_r_environ("user")
 #' # Necessite de redemarer R après avoir fait la modification
 #' # Ce parametre doit etre mis a jour à chaque fois qu'un nouveau jeton est genere
-#' if (!is.na(Sys.getenv("jeton", NA))) {
-#'   get_dataset(Sys.getenv("jeton"),
-#'               "GEO2017REE2017",
-#'               "NA5_B-ENTR_INDIVIDUELLE",
-#'               "all.all",
-#'               "COM",
-#'               "51108")
-#' }
+#' get_dataset(Sys.getenv (jeton),
+#'          "GEO2017REE2017",
+#'          "NA5_B-ENTR_INDIVIDUELLE",
+#'          "all.all",
+#'          "COM",
+#'          "51108")
 #' }
 
 
@@ -70,26 +64,19 @@ get_dataset <- function(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo
 
   if (stringr::str_detect(res, "Invalid Credentials. Make sure you have given the correct access token")){
     print('Erreur - Jeton invalide')
-  }
-
-  else if (stringr::str_detect(res, "Aucune cellule ne correspond a la requ\u00eate")){
+  } else if (stringr::str_detect(res, "Aucune cellule ne correspond a la requ\u00eate")){
     print('Erreur - Param\u00e8tre(s) de la requ\u00eate incorrect(s)')
-  }
-  else if (stringr::str_detect(res, "Resource forbidden ")){
+  }  else if (stringr::str_detect(res, "Resource forbidden ")){
     print("Erreur - Scouscription a l API donn\u00e9es locales non r\u00e9alis\u00e9e")
-  }
-  else if (stringr::str_detect(res, "quota")==T){
+  }  else if (stringr::str_detect(res, "quota")==T){
     print("Erreur- Trop de requ\u00eates, faire une pause")
-  }
-
-  else{
+  } else{
 
     res <- jsonlite::fromJSON(res)
 
     if (length(as.data.frame(res$Cellule)) == 0 ){
       print('Erreur - Param\u00e8tre(s) de la requ\u00eate incorrect(s)')
-    }
-    else{
+    } else{
 
       nb_var <- stringr::str_count(croisement, "-") + 1
 
@@ -113,19 +100,30 @@ get_dataset <- function(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo
       liste_code <- NULL
       if (nb_var > 1) {
         for (i in 1:length(temp)) {
-          liste_code_temp <- data.frame(info_modalite[i,]$V1, info_modalite[i,]$V2, temp[[i]][,'@code'], temp[[i]][,'Libelle'],
-                                        stringsAsFactors = FALSE)
-          colnames(liste_code_temp) <- c("variable", "lib_varible", "modalite", "lib_modalite")
+          if (dim(as.data.frame(temp[[i]]))[1]>1){
+            liste_code_temp <- data.frame(info_modalite[i,]$V1, info_modalite[i,]$V2, temp[[i]][,'@code'], temp[[i]][,'Libelle'],
+                                          stringsAsFactors = FALSE)
+            colnames(liste_code_temp) <- c("variable", "lib_varible", "modalite", "lib_modalite")
+          } else {
+            liste_code_temp <- data.frame(info_modalite[i,]$V1, info_modalite[i,]$V2,temp[[i]]['@code'],temp[[i]]['Libelle'],stringsAsFactors = FALSE)
+            colnames(liste_code_temp) <- c("variable", "lib_varible", "modalite", "lib_modalite")
+          }
 
           liste_code <- rbind(liste_code_temp, liste_code)
         }
       } else {
-        liste_code <- data.frame(info_modalite$V1, info_modalite$V2, temp[,'@code'], temp[,'Libelle'],
-                                 stringsAsFactors = FALSE)
+        if (dim(as.data.frame(temp))[1]>1){
+          liste_code <- data.frame(cbind(info_modalite,temp[,'@code'], temp[,'Libelle']),
+                                   stringsAsFactors = FALSE)
+        } else {
+          liste_code <- data.frame(cbind(info_modalite,temp['@code'], temp['Libelle']),
+                                   stringsAsFactors = FALSE)
+        }
+
         colnames(liste_code) <- c("variable", "lib_varible", "modalite", "lib_modalite")
       }
 
-      cellule<-as.data.frame(res$Cellule)
+      cellule <- as.data.frame(res$Cellule)
       var <- cellule$Modalite
 
       var_tot <- NULL
@@ -141,11 +139,19 @@ get_dataset <- function(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo
         donnees <- as.data.frame(donnees)
 
       } else {
-        donnees <- do.call("cbind",cellule)
-        donnees <- data.frame(donnees[,'Zone.@codgeo'], donnees[,'Zone.@nivgeo'],
-                              donnees[,'Mesure.@code'], donnees[,'Mesure.$'],
-                              donnees[,'Modalite.@code'], donnees[,'Valeur'], stringsAsFactors = FALSE)
-        colnames(donnees) <- c("codgeo", "nivgeo", "mesure", "lib_mesure", var[[2]][2], "valeur")
+        if (dim(as.data.frame(cellule))[1]>1){
+          donnees <- do.call("cbind",cellule)
+          donnees <- data.frame(donnees[,'Zone.@codgeo'], donnees[,'Zone.@nivgeo'],
+                                donnees[,'Mesure.@code'], donnees[,'Mesure.$'],
+                                donnees[,'Modalite.@code'], donnees[,'Valeur'], stringsAsFactors = FALSE)
+          colnames(donnees) <- c("codgeo", "nivgeo", "mesure", "lib_mesure", var[[2]][2], "valeur")
+        } else {
+          var <- as.character(cellule[,'Modalite..variable'])
+          donnees <- data.frame(cellule['Zone..codgeo'], cellule[,'Zone..nivgeo'],
+                                cellule[,'Mesure..code'], cellule[,'Mesure..'],
+                                cellule[,'Modalite..code'], cellule[,'Valeur'], stringsAsFactors = FALSE)
+          colnames(donnees) <- c("codgeo", "nivgeo", "mesure", "lib_mesure", var, "valeur")
+        }
       }
 
       if (!is.na(temporisation)){
