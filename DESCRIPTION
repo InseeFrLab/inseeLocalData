@@ -8,7 +8,7 @@ Authors@R:
              email = "marie-emmanuelle.faure@insee.fr"),
       person(family = "Institut national de la statistique et des études économiques",
              role = "cph"))
-Description: Ce package permet d'importer les données locales présentent dans le catalogue des API de l'Insee.
+Description: Ce package permet d'importer les données locales présentes dans le catalogue des API de l'Insee.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
