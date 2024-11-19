@@ -62,7 +62,7 @@ get_dataset <- function(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo
 
   auth_header <- httr::add_headers('Authorization'= paste('Bearer',jeton))
 
-  res <- httr::content(httr::GET(paste0("https://api.insee.fr/donnees-locales/V0.1/donnees/geo-",
+  res <- httr::content(httr::GET(paste0("https://api.insee.fr/donnees-locales/donnees/geo-",
                                         croisement, "@", jeu_donnees, "/", nivgeo, "-", codgeo, ".", modalite),
                                  auth_header),
                        as="text", httr::content_type_json(), encoding='UTF-8')
