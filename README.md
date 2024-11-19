@@ -1,16 +1,7 @@
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # inseeLocalData
 
-<!-- badges: start -->
-
-[![R-CMD-check](https://github.com/InseeFrLab/inseeLocalData/workflows/R-CMD-check/badge.svg)](https://github.com/InseeFrLab/inseeLocalData/actions)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/inseeLocalData)](https://cran.r-project.org/package=inseeLocalData)
-<!-- badges: end -->
-
 L’[API ‘Données
-locales’](https://api.insee.fr/catalogue/site/themes/wso2/subthemes/insee/pages/item-info.jag?name=DonneesLocales&version=V0.1&provider=insee)
+locales’](https://portail-api.insee.fr/catalog/api/3d577cf9-d081-4054-977c-f9d081b054b2?aq=ALL)
 permet d’accéder aux données localisées à la commune, diffusées sur
 insee.fr dans la rubrique ‘chiffres détaillés’, sous forme de cubes
 prédéfinis.
@@ -48,22 +39,6 @@ remotes::install_github("inseefrlab/inseeLocalData")
 ```
 
 ## Utilisation
-
-Dans les différents exemples, il est nécessaire d’avoir généré
-préalablement un jeton sur le catalogue des API. Ensuite plusieurs
-possibilités s’offrent à vous :
-
-  - Remplacer jeton par la valeur du jeton généré sur le catalogue des
-    API ;
-  - Générer une fenêtre dans laquelle vous pouvez renseigner le jeton
-    généré sur le catalogue des API (.rs.askForPassword(“jeton:”) ;
-  - Modifier le fichier .Renviron en ajoutant une ligne jeton = “la
-    valeur du jeton genere sur le catalogue des API”. Pour accéder
-    facilement au fichier .Renviron, vous pouvez utiliser la commande
-    usethis::edit\_r\_environ(“user”). Il est nécessaire de redémarer R
-    après avoir fait la modification. Attention, ce paramètre doit être
-    mis a jour à chaque fois qu’un nouveau jeton est généré.
-
 ### Exemple d’utilisation simple :
 
 Cet exemple permet d’utiliser l’API pour un croisement et un code
@@ -122,7 +97,7 @@ différente). Les paramètres sont renseignés au préalable dans un
 data.frame ‘fichier’, ayant pour variables jeu\_donnees, croisement,
 modalite, nivgeo et codgeo. Le paramètre temporisation est utilisé pour
 faire une pause de 2 secondes entre chaque requêtes afin de ne pas
-dépasser le quota de 30 requêtes par minute.
+dépasser le quota de requêtes par minute du portail des API de l'Insee.
 
 ``` r
 fichier <- 'mon fichier'
