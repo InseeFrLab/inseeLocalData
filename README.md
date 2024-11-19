@@ -53,7 +53,7 @@ nivgeo <- "COM"
 codgeo <- "51108"
 modalite <- "all.all"
 
-donneesAPI <- get_dataset(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo)
+donneesAPI <- get_dataset(jeu_donnees, croisement, modalite, nivgeo, codgeo)
 
 donnees <- donneesAPI$donnees # pour accéder aux données
 liste_code <- donneesAPI$liste_code # pour accéder aux nomenclatures
@@ -75,7 +75,7 @@ jeu_donnees <- "GEO2017REE2017"
 modalite <- "all.all"
 
 sortie <- mapply(get_dataset,
-                 jeton, jeu_donnees, croisement, 
+                 jeu_donnees, croisement, 
                  modalite, liste_code$nivgeo, liste_code$codgeo,USE.NAMES = TRUE)
 
 donnees <- NULL
@@ -102,7 +102,7 @@ dépasser le quota de requêtes par minute du portail des API de l'Insee.
 ``` r
 fichier <- 'mon fichier'
 sortie <- mapply(get_dataset,
-               jeton, fichier$jeu_donnees, fichier$croisement, 
+               fichier$jeu_donnees, fichier$croisement, 
                fichier$modalite, fichier$nivgeo, fichier$codgeo,2,USE.NAMES = TRUE)
 
 # pour le 1er croisement renseigné dans le fichier en entrée

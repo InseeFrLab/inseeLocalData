@@ -1,6 +1,5 @@
 #' Fonction permettant d'importer les données de l'API 'données locales' pour un couple de paramètre
 #'
-#' @param jeton Access token (jeton) généré sur le catalogue des API de l'Insee
 #' @param jeu_donnees code jeu de données se composant du nom de la source, du millésime des données et parfois du millésime géographique de diffusion
 #' @param croisement sélection de variables (composée d'une variable ou de plusieurs)
 #' @param modalite modalités souhaitées pour les variables (dans le même ordre)
@@ -18,36 +17,7 @@
 #'
 #' @examples
 #' \donttest{
-#' # Remplace jeton par la valeur du jeton genere sur le catalogue des API :
-#' if (exists("jeton")) {
-#'   get_dataset(jeton,
-#'               "GEO2017REE2017",
-#'               "NA5_B-ENTR_INDIVIDUELLE",
-#'               "all.all",
-#'               "COM",
-#'               "51108")
-#' }
-#'
-#' # Genere une fenetre dans laquelle vous pouvez renseigner le jeton genere sur le catalogue des API
-#' # Permet de ne pas stocker le jeton en clair dans le programme
-#' if (interactive() && identical(Sys.getenv("RSTUDIO"), "1")) {
-#'   get_dataset(rstudioapi::askForPassword("jeton:"),
-#'               "GEO2017REE2017",
-#'               "NA5_B-ENTR_INDIVIDUELLE",
-#'               "all.all",
-#'               "COM",
-#'               "51108")
-#' }
-#'
-#' # Necessite la modification du fichier .Renviron en ajoutant
-#' # une ligne jeton = "la valeur du jeton genere sur le catalogue des API"
-#' # Pour acceder facilement au fichier .Renviron, vous pouvez
-#' # utiliser la commande usethis::edit_r_environ("user")
-#' # Necessite de redemarer R après avoir fait la modification
-#' # Ce parametre doit etre mis a jour à chaque fois qu'un nouveau jeton est genere
-#' if (!is.na(Sys.getenv("jeton", NA))) {
-#'   get_dataset(Sys.getenv("jeton"),
-#'               "GEO2017REE2017",
+#'   get_dataset("GEO2017REE2017",
 #'               "NA5_B-ENTR_INDIVIDUELLE",
 #'               "all.all",
 #'               "COM",
@@ -56,25 +26,16 @@
 
 
 
-get_dataset <- function(jeton, jeu_donnees, croisement, modalite, nivgeo, codgeo, temporisation = NA){
+get_dataset <- function(jeu_donnees, croisement, modalite, nivgeo, codgeo, temporisation = NA){
 
   modalite <- stringr::str_replace_all(modalite, '\\+', '%2B')
 
-  auth_header <- httr::add_headers('Authorization'= paste('Bearer',jeton))
-
   res <- httr::content(httr::GET(paste0("https://api.insee.fr/donnees-locales/donnees/geo-",
-                                        croisement, "@", jeu_donnees, "/", nivgeo, "-", codgeo, ".", modalite),
-                                 auth_header),
+                                        croisement, "@", jeu_donnees, "/", nivgeo, "-", codgeo, ".", modalite)),
                        as="text", httr::content_type_json(), encoding='UTF-8')
 
-  if (stringr::str_detect(res, "Invalid Credentials. Make sure you have given the correct access token")){
-    print('Erreur - Jeton invalide')
-  } else if (stringr::str_detect(res, "Aucune cellule ne correspond a la requ\u00eate")){
+  if (stringr::str_detect(res, "Aucune cellule ne correspond a la requ\u00eate")){
     print('Erreur - Param\u00e8tre(s) de la requ\u00eate incorrect(s)')
-  }  else if (stringr::str_detect(res, "Resource forbidden ")){
-    print("Erreur - Scouscription a l API donn\u00e9es locales non r\u00e9alis\u00e9e")
-  }  else if (stringr::str_detect(res, "quota")==T){
-    print("Erreur- Trop de requ\u00eates, faire une pause")
   } else{
 
     res <- jsonlite::fromJSON(res)
