@@ -19,8 +19,7 @@ Suggests:
     rstudioapi,
     testthat,
     vcr
-Imports: 
-    dplyr,
+Imports:
     httr,
     stringr,
     jsonlite,
