@@ -1,6 +1,6 @@
 Package: inseeLocalData
 Title: Accès aux données locales de l'Insee via le catalogue des API
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     c(person(given = "Marie-Emmanuelle",
              family = "FAURE",
