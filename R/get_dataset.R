@@ -30,8 +30,12 @@ get_dataset <- function(jeu_donnees, croisement, modalite, nivgeo, codgeo, tempo
 
   modalite <- stringr::str_replace_all(modalite, '\\+', '%2B')
 
-  res <- httr::content(httr::GET(paste0("https://api.insee.fr/donnees-locales/donnees/geo-",
-                                        croisement, "@", jeu_donnees, "/", nivgeo, "-", codgeo, ".", modalite)),
+  req <- paste0("https://api.insee.fr/donnees-locales/donnees/geo-",
+                croisement, "@", jeu_donnees, "/", nivgeo, "-", codgeo, ".", modalite)
+
+  message(req)
+
+  res <- httr::content(httr::GET(req),
                        as="text", httr::content_type_json(), encoding='UTF-8')
 
   if (stringr::str_detect(res, "Aucune cellule ne correspond a la requ\u00eate")){
@@ -47,46 +51,46 @@ get_dataset <- function(jeu_donnees, croisement, modalite, nivgeo, codgeo, tempo
       nb_var <- stringr::str_count(croisement, "-") + 1
 
       zone <- res$Zone
-      info_zone <- as.data.frame(cbind(zone$'@codgeo',zone$'@nivgeo',do.call("cbind", zone$Millesime)), stringsAsFactors = FALSE)
-      colnames(info_zone) <- c("codgeo","libgeo","millesime_geo","libelle_sans_article","code_article")
+      info_zone <- as.data.frame(cbind(zone$'codgeo',zone$'nivgeo', stringsAsFactors = FALSE))
+      colnames(info_zone) <- c("codgeo","libgeo")
 
       croisement <- res$Croisement
       source <- as.data.frame(do.call("cbind", croisement$JeuDonnees), stringsAsFactors = FALSE)
-      colnames(source) <- c("jeu_donnees", "millesime_donnees", "lib_jeu_donnees","lib_source")
-
-      source <- cbind(source, info_zone$millesime_geo)
-      colnames(source)[colnames(source) =="info_zone$millesime_geo"] <- "millesime_geo"
-      source$source <- paste0("Insee, ", source$lib_source, " ", source$millesime_donnees,
-                              ", g\u00e9ographie au 01/01/", source$millesime_geo)
+      colnames(source) <- c("code", "Libelle", "Annee","Source")
 
       variable <- res$Variable
       temp <- variable$Modalite
-      info_modalite <- as.data.frame(cbind(variable$'@code',variable$Libelle), stringsAsFactors = FALSE)
+      info_modalite <- as.data.frame(cbind(variable$'code',variable$Libelle), stringsAsFactors = FALSE)
 
       liste_code <- NULL
       if (nb_var > 1) {
         for (i in 1:length(temp)) {
           if (dim(as.data.frame(temp[[i]]))[1]>1){
-            liste_code_temp <- data.frame(info_modalite[i,]$V1, info_modalite[i,]$V2, temp[[i]][,'@code'], temp[[i]][,'Libelle'],
+            liste_code_temp <- data.frame(info_modalite[i,]$V1,
+                                          info_modalite[i,]$V2,
+                                          temp[[i]][,'code'],
                                           stringsAsFactors = FALSE)
-            colnames(liste_code_temp) <- c("variable", "lib_varible", "modalite", "lib_modalite")
+            colnames(liste_code_temp) <- c("variable", "lib_variable", "modalite")
           } else {
-            liste_code_temp <- data.frame(info_modalite[i,]$V1, info_modalite[i,]$V2,temp[[i]]['@code'],temp[[i]]['Libelle'],stringsAsFactors = FALSE)
-            colnames(liste_code_temp) <- c("variable", "lib_varible", "modalite", "lib_modalite")
+            liste_code_temp <- data.frame(info_modalite[i,]$V1,
+                                          info_modalite[i,]$V2,
+                                          temp[[i]]['code'],
+                                          stringsAsFactors = FALSE)
+            colnames(liste_code_temp) <- c("variable", "lib_variable", "modalite")
           }
 
           liste_code <- rbind(liste_code_temp, liste_code)
         }
       } else {
         if (dim(as.data.frame(temp))[1]>1){
-          liste_code <- data.frame(cbind(info_modalite,temp[,'@code'], temp[,'Libelle']),
+          liste_code <- data.frame(cbind(info_modalite,temp[,'code']),
                                    stringsAsFactors = FALSE)
         } else {
-          liste_code <- data.frame(cbind(info_modalite,temp['@code'], temp['Libelle']),
+          liste_code <- data.frame(cbind(info_modalite,temp['code']),
                                    stringsAsFactors = FALSE)
         }
 
-        colnames(liste_code) <- c("variable", "lib_varible", "modalite", "lib_modalite")
+        colnames(liste_code) <- c("variable", "lib_variable", "modalite")
       }
 
       cellule <- as.data.frame(res$Cellule)
@@ -99,24 +103,22 @@ get_dataset <- function(jeu_donnees, croisement, modalite, nivgeo, codgeo, tempo
         }
         colnames(var_tot) <- c(t(var[[1]][2]))
 
-        donnees <- cbind(cellule$Zone, cellule$Mesure, var_tot, cellule$Valeur)
-        colnames(donnees) <- c("codgeo", "nivgeo", "mesure", "lib_mesure", c(t(var[[1]][2])), "valeur")
+        donnees <- cbind(cellule$Zone$codgeo, cellule$Zone$nivgeo, var_tot, cellule$Valeur)
+        colnames(donnees) <- c("codgeo", "nivgeo", c(t(var[[1]][2])), "valeur")
 
         donnees <- as.data.frame(donnees)
 
       } else {
         if (dim(as.data.frame(cellule))[1]>1){
           donnees <- do.call("cbind",cellule)
-          donnees <- data.frame(donnees[,'Zone.@codgeo'], donnees[,'Zone.@nivgeo'],
-                                donnees[,'Mesure.@code'], donnees[,'Mesure.$'],
-                                donnees[,'Modalite.@code'], donnees[,'Valeur'], stringsAsFactors = FALSE)
-          colnames(donnees) <- c("codgeo", "nivgeo", "mesure", "lib_mesure", var[[2]][2], "valeur")
+          donnees <- data.frame(donnees[,'Zone.codgeo'], donnees[,'Zone.nivgeo'],
+                                donnees[,'Modalite.code'], donnees[,'Valeur'], stringsAsFactors = FALSE)
+          colnames(donnees) <- c("codgeo", "nivgeo", var[[2]][2], "valeur")
         } else {
           var <- as.character(cellule[,'Modalite..variable'])
           donnees <- data.frame(cellule['Zone..codgeo'], cellule[,'Zone..nivgeo'],
-                                cellule[,'Mesure..code'], cellule[,'Mesure..'],
                                 cellule[,'Modalite..code'], cellule[,'Valeur'], stringsAsFactors = FALSE)
-          colnames(donnees) <- c("codgeo", "nivgeo", "mesure", "lib_mesure", var, "valeur")
+          colnames(donnees) <- c("codgeo", "nivgeo", var, "valeur")
         }
       }
 
