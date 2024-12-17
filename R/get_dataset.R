@@ -86,7 +86,7 @@ get_dataset <- function(jeu_donnees, croisement, modalite, nivgeo, codgeo, tempo
           liste_code <- data.frame(cbind(info_modalite,temp[,'code']),
                                    stringsAsFactors = FALSE)
         } else {
-          liste_code <- data.frame(cbind(info_modalite,temp['code']),
+          liste_code <- data.frame(cbind(info_modalite,as.data.frame(temp)$code),
                                    stringsAsFactors = FALSE)
         }
 
