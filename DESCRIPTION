@@ -1,6 +1,6 @@
 Package: inseeLocalData
 Title: Accès aux données locales de l'Insee via le catalogue des API
-Version: 0.0.0.9000
+Version: 0.0.2
 Authors@R: 
     c(person(given = "Marie-Emmanuelle",
              family = "FAURE",
@@ -13,14 +13,13 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.1
 Language: fr
 Suggests: 
     rstudioapi,
     testthat,
     vcr
-Imports: 
-    dplyr,
+Imports:
     httr,
     stringr,
     jsonlite,

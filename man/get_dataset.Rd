@@ -6,7 +6,6 @@
 \title{Fonction permettant d'importer les données de l'API 'données locales' pour un couple de paramètre}
 \usage{
 get_dataset(
-  jeton,
   jeu_donnees,
   croisement,
   modalite,
@@ -16,8 +15,6 @@ get_dataset(
 )
 }
 \arguments{
-\item{jeton}{Access token (jeton) généré sur le catalogue des API de l'Insee}
-
 \item{jeu_donnees}{code jeu de données se composant du nom de la source, du millésime des données et parfois du millésime géographique de diffusion}
 
 \item{croisement}{sélection de variables (composée d'une variable ou de plusieurs)}
@@ -38,40 +35,10 @@ Fonction permettant d'importer les données de l'API 'données locales' pour un 
 }
 \examples{
 \donttest{
-# Remplace jeton par la valeur du jeton genere sur le catalogue des API :
-if (exists("jeton")) {
-  get_dataset(jeton,
-              "GEO2017REE2017",
+  get_dataset("GEO2017REE2017",
               "NA5_B-ENTR_INDIVIDUELLE",
               "all.all",
               "COM",
               "51108")
-}
-
-# Genere une fenetre dans laquelle vous pouvez renseigner le jeton genere sur le catalogue des API
-# Permet de ne pas stocker le jeton en clair dans le programme
-if (interactive() && identical(Sys.getenv("RSTUDIO"), "1")) {
-  get_dataset(rstudioapi::askForPassword("jeton:"),
-              "GEO2017REE2017",
-              "NA5_B-ENTR_INDIVIDUELLE",
-              "all.all",
-              "COM",
-              "51108")
-}
-
-# Necessite la modification du fichier .Renviron en ajoutant
-# une ligne jeton = "la valeur du jeton genere sur le catalogue des API"
-# Pour acceder facilement au fichier .Renviron, vous pouvez
-# utiliser la commande usethis::edit_r_environ("user")
-# Necessite de redemarer R après avoir fait la modification
-# Ce parametre doit etre mis a jour à chaque fois qu'un nouveau jeton est genere
-if (!is.na(Sys.getenv("jeton", NA))) {
-  get_dataset(Sys.getenv("jeton"),
-              "GEO2017REE2017",
-              "NA5_B-ENTR_INDIVIDUELLE",
-              "all.all",
-              "COM",
-              "51108")
-}
 }
 }
