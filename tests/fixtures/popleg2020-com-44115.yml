@@ -1,0 +1,38 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://api.insee.fr/donnees-locales/donnees/geo-ind_poplegales@popleg2020/COM-44109.all
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: 200
+      category: Success
+      reason: OK
+      message: 'Success: (200) OK'
+    headers:
+      x-gravitee-client-identifier: da8f0e3e43b6fa506c3ffbc45d3f15fedb15e896336c30f524c5fa3d7fdfe05d
+      content-type: application/json;charset=utf-8
+      content-length: '999'
+      date: Tue, 17 Dec 2024 07:40:09 GMT
+      server: unknown
+      set-cookie: INSEE=rd4o00000000000000000000ffff0ac33804o8080; expires=Tue, 17-Dec-2024
+        08:00:09 GMT; path=/; Httponly; Secure
+      x-gravitee-transaction-id: 92153cd4-1b53-4e71-953c-d41b539e7123
+      x-gravitee-request-id: 92153cd4-1b53-4e71-953c-d41b539e7123
+      strict-transport-security: max-age=100000; includeSubDomains
+    body:
+      encoding: ''
+      file: no
+      string: '{"Croisement":{"Filtre":"","JeuDonnees":{"code":"POPLEG2020","Libelle":"Populations
+        légales 2020","Annee":2020,"Source":"Populations légales"},"Groupe":{"value":"Communes
+        des populations légales uniquement","code":"COMMUNES_POP"}},"Zone":[{"codgeo":"44109","nivgeo":"COM","Evenement":[]}],"Variable":[{"code":"IND_POPLEGALES","Libelle":"Indicateurs
+        des populations légales","Modalite":[{"code":"1","variable":""}]}],"Cellule":[{"Zone":{"codgeo":"44109","nivgeo":"COM","Evenement":[]},"Mesure":{"value":"Population
+        municipale","code":"POPMUN"},"Modalite":[{"code":"1","variable":"IND_POPLEGALES"}],"Valeur":"320732"},{"Zone":{"codgeo":"44109","nivgeo":"COM","Evenement":[]},"Mesure":{"value":"Population
+        comptée à part","code":"POPCAP"},"Modalite":[{"code":"1","variable":"IND_POPLEGALES"}],"Valeur":"5125"},{"Zone":{"codgeo":"44109","nivgeo":"COM","Evenement":[]},"Mesure":{"value":"Population
+        totale","code":"POPTOT"},"Modalite":[{"code":"1","variable":"IND_POPLEGALES"}],"Valeur":"325857"}]}'
+  recorded_at: 2024-12-17 07:40:09 GMT
+  recorded_with: vcr/1.6.0, webmockr/1.0.0
