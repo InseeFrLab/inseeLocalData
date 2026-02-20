@@ -1,3 +1,9 @@
+⚠️ 
+L'API données locales n'étant plus mise à jour, ce package ne permet pas de disposer des dernières données publiées par l'Insee. 
+La diffusion de données locales étant désormais intégrée au [catalogue de données Melodi](https://catalogue-donnees.insee.fr), 
+privilégier le [package R melodi](https://github.com/InseeFrLab/melodi)
+⚠️ 
+
 # inseeLocalData
 
 L’[API ‘Données
